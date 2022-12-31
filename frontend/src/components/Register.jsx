@@ -42,7 +42,7 @@ export default function Register() {
       })
       .then(() => {
         window.location.href =
-        'http://localhost:3000/#/login';
+        'http://localhost:3000/#/onboarding/streamingservices';
       })
       .catch((err) => {
         setError(`${err.status} - ${err.statusText}`);

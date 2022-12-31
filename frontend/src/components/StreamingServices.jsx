@@ -18,7 +18,7 @@ import {useNavigate} from 'react-router-dom';
 /**
  * @return {void}
  */
-export default function StreamingServicesOnboarding() {
+export default function StreamingServices() {
   return (
     <div>Streaming Services</div>
   );
