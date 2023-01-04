@@ -20,6 +20,12 @@ import {useNavigate} from 'react-router-dom';
  */
 export default function StreamingServices() {
   return (
-    <div>Streaming Services</div>
+    <div>Streaming Services
+          HBO Max
+          Netflix
+          Disney
+          Hulu
+          Amazon Prime
+    </div>
   );
 }
