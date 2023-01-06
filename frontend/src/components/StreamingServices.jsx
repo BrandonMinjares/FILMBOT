@@ -1,4 +1,6 @@
-import * as React from 'react';
+import React, {useState} from 'react';
+import Button from '@mui/material/Button';
+
 /*
 import Avatar from '@mui/material/Avatar';
 import Button from '@mui/material/Button';
@@ -15,17 +17,66 @@ import {useNavigate} from 'react-router-dom';
 
 */
 
+
+const setStreamingServices = (services) => {
+  const item = localStorage.getItem('user');
+  if (!item) {
+    return;
+  }
+  const user = JSON.parse(item);
+  const bearerToken = user ? user.accessToken : '';
+  fetch('http://localhost:3010/v0/streamingServices', {
+    method: 'POST',
+    headers: new Headers({
+      'Authorization': `Bearer ${bearerToken}`,
+      'Content-Type': 'application/x-www-form-urlencoded',
+    }),
+  })
+    .then((response) => {
+      if (!response.ok) {
+        console.log('notok');
+        throw response;
+      }
+      return response.json();
+    })
+    .then((json) => {
+      console.log(json);
+      // setError('');
+    })
+    .catch((error) => {
+      // setMail([]);
+      // setError(`${error.status} - ${error.statusText}`);
+    });
+};
+
 /**
  * @return {void}
  */
 export default function StreamingServices() {
+  // Need to account for user clicking and unclicking multiple times
+  const [service, setService] = useState([]);
+
+  const removeElement = (index) => {
+    if (service.includes(index)) {
+      const num = service.indexOf(index);
+      service.splice(num, 1);
+      setService([...service]);
+      console.log('already in');
+    } else {
+      console.log('not in');
+      setService([...service, index]);
+    }
+  };
+  console.log(service);
+
   return (
-    <div>Streaming Services
-          HBO Max
-          Netflix
-          Disney
-          Hulu
-          Amazon Prime
+    <div>
+      <h3>Streaming Services</h3>
+      <Button onClick={() => removeElement('HBO Max')}>HBO Max</Button>
+      <Button onClick={() => removeElement('Netflix')}>Netflix</Button>
+      <Button onClick={() => removeElement('Disney')}>Disney</Button>
+      <Button onClick={() => removeElement('Hulu')}>Hulu</Button>
+      <Button onClick={setStreamingServices}>Save</Button>
     </div>
   );
 }

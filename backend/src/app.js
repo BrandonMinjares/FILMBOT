@@ -8,6 +8,8 @@ const OpenApiValidator = require('express-openapi-validator');
 
 const dummy = require('./dummy');
 const auth = require('./auth');
+const streamingServices = require('./streamingServices');
+
 
 const app = express();
 app.use(cors());
@@ -31,6 +33,8 @@ app.get('/v0/dummy', dummy.get);
 // Your routes go here
 app.post('/v0/login', auth.login);
 app.post('/v0/register', auth.register);
+app.post('/v0/streamingServices', streamingServices.updateStreamingServices);
+
 
 app.use((err, req, res, next) => {
   res.status(err.status).json({

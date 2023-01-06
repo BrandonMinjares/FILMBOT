@@ -5,6 +5,7 @@ import Register from './components/Register';
 import Login from './components/Login';
 import StreamingServices from './components/StreamingServices';
 import PrivateRoute from './components/PrivateRoute';
+import Movie from './components/Movie';
 
 /**
  * Simple component with no state.
@@ -19,6 +20,7 @@ function App() {
           <Routes>
             <Route path="/register" element={<Register/>}/>
             <Route path="/login" element={<Login/>}/>
+            <Route path="/movie" element={<Movie/>}/>
             <Route path="/onboarding/streamingservices"
               element={<StreamingServices/>}/>
 
