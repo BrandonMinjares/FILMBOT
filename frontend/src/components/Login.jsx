@@ -19,7 +19,6 @@ const theme = createTheme();
 export default function SignIn() {
   const [error, setError] = React.useState('');
 
-  const firstTime = false;
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -43,7 +42,7 @@ export default function SignIn() {
         const loggedIn = json['firstLoginBoolean'];
         console.log(loggedIn);
         localStorage.setItem('user', JSON.stringify(json));
-        if (firstTime) {
+        if (loggedIn === 1) {
           window.location.href =
           'http://localhost:3000/#/onboarding/streamingservices';
         } else {
