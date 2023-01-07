@@ -37,12 +37,11 @@ export default function SignIn() {
     })
       .then((res) => {
         if (!res.ok) throw res;
-        console.log(res);
         return res.json();
       })
       .then((json) => {
-        console.log(json);
-
+        const loggedIn = json['firstLoginBoolean'];
+        console.log(loggedIn);
         localStorage.setItem('user', JSON.stringify(json));
         if (firstTime) {
           window.location.href =

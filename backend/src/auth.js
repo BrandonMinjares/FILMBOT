@@ -25,7 +25,7 @@ exports.login = async (req, res) => {
     return res.status(401).send('Invalid credentials or user does not exist');
   }
 
-
+  // Login first time login
   const checkIfFirstLogin = `SELECT first_login FROM Person WHERE `+
   `data->>'email' = $1`;
   const query2 = {
@@ -34,7 +34,21 @@ exports.login = async (req, res) => {
   };
   const firstLogin = await pool.query(query2);
   const firstLoginBoolean = firstLogin.rows[0].first_login;
-  // console.log(firstLoginBoolean);
+
+  // Update firstTimeLoggedIn if true
+  if (firstLoginBoolean) {
+    const updateOpened = 'Update Person set first_login = 0 WHERE ' +
+  `data->>'email' = $1`;
+
+    const query2 = {
+      text: updateOpened,
+      values: [email],
+    };
+
+    const update = await pool.query(query2);
+    console.log(update);
+  }
+  //
 
 
   // check if email exists and passwords are same
