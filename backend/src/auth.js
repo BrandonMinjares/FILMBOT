@@ -34,7 +34,7 @@ exports.login = async (req, res) => {
   };
   const firstLogin = await pool.query(query2);
   const firstLoginBoolean = firstLogin.rows[0].first_login;
-  console.log(firstLoginBoolean);
+  // console.log(firstLoginBoolean);
 
 
   // check if email exists and passwords are same

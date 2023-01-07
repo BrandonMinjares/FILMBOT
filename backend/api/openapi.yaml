@@ -183,6 +183,7 @@ components:
           type: string
         firstLoginBoolean:
           type: integer
+          default: 1
       required:
         - email
         - accessToken

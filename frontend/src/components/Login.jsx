@@ -37,9 +37,12 @@ export default function SignIn() {
     })
       .then((res) => {
         if (!res.ok) throw res;
+        console.log(res);
         return res.json();
       })
       .then((json) => {
+        console.log(json);
+
         localStorage.setItem('user', JSON.stringify(json));
         if (firstTime) {
           window.location.href =
