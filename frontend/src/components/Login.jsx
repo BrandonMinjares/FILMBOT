@@ -10,7 +10,6 @@ import LockOutlinedIcon from '@mui/icons-material/LockOutlined';
 import Typography from '@mui/material/Typography';
 import Container from '@mui/material/Container';
 import {createTheme, ThemeProvider} from '@mui/material/styles';
-import {useNavigate} from 'react-router-dom';
 
 const theme = createTheme();
 
@@ -18,11 +17,9 @@ const theme = createTheme();
  * @return {void}
  */
 export default function SignIn() {
-  const history = useNavigate();
-
   const [error, setError] = React.useState('');
 
-
+  const firstTime = false;
   const handleSubmit = (event) => {
     event.preventDefault();
     const data = new FormData(event.currentTarget);
@@ -44,7 +41,13 @@ export default function SignIn() {
       })
       .then((json) => {
         localStorage.setItem('user', JSON.stringify(json));
-        history('/');
+        if (firstTime) {
+          window.location.href =
+          'http://localhost:3000/#/onboarding/streamingservices';
+        } else {
+          window.location.href =
+          'http://localhost:3000/#/movie';
+        }
       })
       .catch((err) => {
         setError(`${err.status} - ${err.statusText}`);

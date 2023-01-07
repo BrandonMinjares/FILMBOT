@@ -40,9 +40,9 @@ export default function Register() {
         if (!res.ok) throw res;
         return res.json();
       })
-      .then(() => {
+      .then((json) => {
         window.location.href =
-        'http://localhost:3000/#/onboarding/streamingservices';
+        'http://localhost:3000/#/login';
       })
       .catch((err) => {
         setError(`${err.status} - ${err.statusText}`);

@@ -19,6 +19,11 @@ import {useNavigate} from 'react-router-dom';
 
 
 const setStreamingServices = (services) => {
+  console.log('In set Streaming services function');
+  console.log(services);
+
+  // User clicked save but didn't change anything
+  if (services.length === 0) return;
   const item = localStorage.getItem('user');
   if (!item) {
     return;
@@ -27,9 +32,10 @@ const setStreamingServices = (services) => {
   const bearerToken = user ? user.accessToken : '';
   fetch('http://localhost:3010/v0/streamingServices', {
     method: 'POST',
+    body: JSON.stringify(services),
     headers: new Headers({
       'Authorization': `Bearer ${bearerToken}`,
-      'Content-Type': 'application/x-www-form-urlencoded',
+      'Content-Type': 'application/json',
     }),
   })
     .then((response) => {
@@ -69,6 +75,7 @@ export default function StreamingServices() {
   };
   console.log(service);
 
+
   return (
     <div>
       <h3>Streaming Services</h3>
@@ -76,7 +83,7 @@ export default function StreamingServices() {
       <Button onClick={() => removeElement('Netflix')}>Netflix</Button>
       <Button onClick={() => removeElement('Disney')}>Disney</Button>
       <Button onClick={() => removeElement('Hulu')}>Hulu</Button>
-      <Button onClick={setStreamingServices}>Save</Button>
+      <Button onClick={() => setStreamingServices(service)}>Save</Button>
     </div>
   );
 }

@@ -10,11 +10,17 @@ const pool = new Pool({
 
 
 exports.updateStreamingServices = async (req, res) => {
-  const select = 'SELECT * FROM dummy';
+    console.log('in backend update streaming');
+    console.log(req.user);
+    /*
+  const select = `SELECT P."streamingServices" FROM Person P WHERE ` +
+  `P."data" ->>'email' = $1`;
   const query = {
     text: select,
-    values: [],
+    values: [req.user],
   };
+
   const {rows} = await pool.query(query);
   return rows[0].created;
+  */
 };

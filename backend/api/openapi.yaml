@@ -76,6 +76,31 @@ paths:
               schema:
                 $ref: '#/components/schemas/Error'
 
+  /streamingServices:
+    post:
+      security:
+        - bearerAuth: []
+      requestBody:
+        description: Request Body
+        required: true
+        content:
+          application/json:
+            schema:
+              $ref: '#/components/schemas/Services'
+      responses:
+        200:
+          description: Succesful
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/DummyResponse'
+        default:
+          description: unexpected error
+          content:
+            application/json:
+              schema:
+                $ref: '#/components/schemas/Error'
+
 components:
   schemas:
     UnexpectedError:
@@ -119,6 +144,9 @@ components:
         - email
         - password
 
+    Services:
+      type: array
+
     Register:
       type: object
       properties:
@@ -153,9 +181,12 @@ components:
           format: email
         accessToken:
           type: string
+        firstLoginBoolean:
+          type: integer
       required:
         - email
         - accessToken
+        - firstLoginBoolean
 
   securitySchemes:
     bearerAuth:            # arbitrary name for the security scheme

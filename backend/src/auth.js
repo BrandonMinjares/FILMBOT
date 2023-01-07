@@ -24,6 +24,19 @@ exports.login = async (req, res) => {
   if (rows.length == 0) {
     return res.status(401).send('Invalid credentials or user does not exist');
   }
+
+
+  const checkIfFirstLogin = `SELECT first_login FROM Person WHERE `+
+  `data->>'email' = $1`;
+  const query2 = {
+    text: checkIfFirstLogin,
+    values: [email],
+  };
+  const firstLogin = await pool.query(query2);
+  const firstLoginBoolean = firstLogin.rows[0].first_login;
+  console.log(firstLoginBoolean);
+
+
   // check if email exists and passwords are same
   if (bcrypt.compareSync(password, rows[0].data.password)) {
     const accessToken = jwt.sign(
@@ -32,7 +45,8 @@ exports.login = async (req, res) => {
         expiresIn: '30m',
         algorithm: 'HS256',
       });
-    res.status(200).json({email: email, accessToken: accessToken});
+    res.status(200).json({email: email, accessToken: accessToken,
+      firstLoginBoolean: firstLoginBoolean});
   } else {
     res.status(401).send('Invalid credentials or user does not exist');
   }
