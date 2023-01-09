@@ -1,5 +1,6 @@
-// const {Pool} = require('pg');
-/*
+
+const {Pool} = require('pg');
+
 const pool = new Pool({
   host: 'localhost',
   port: 5432,
@@ -7,22 +8,26 @@ const pool = new Pool({
   user: process.env.POSTGRES_USER,
   password: process.env.POSTGRES_PASSWORD,
 });
-*/
 
-exports.updateStreamingServices = async (req, res) => {
+
+exports.postStreamingServices = async (req, res) => {
   console.log('in backend update streaming');
-  console.log(req.user);
+  // console.log(req.user.email);
   console.log(req.body);
+  const stream = {};
 
-  /*
-  const select = `SELECT P."streamingServices" FROM Person P WHERE ` +
-  `P."data" ->>'email' = $1`;
-  const query = {
-    text: select,
-    values: [req.user],
+  for (let i = 0; i < req.body.length; i++) {
+    stream[req.body[i]] = true;
+  }
+
+  const update = `UPDATE person set streamingServices = $1`+
+  `WHERE Person."data" ->>'email' = $2`;
+
+  const updateQuery = {
+    text: update,
+    values: [stream, req.user.email],
   };
+  const {rows} = await pool.query(updateQuery);
 
-  const {rows} = await pool.query(query);
-  return rows[0].created;
-  */
+  return rows[0];
 };

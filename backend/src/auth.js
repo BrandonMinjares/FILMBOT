@@ -45,8 +45,8 @@ exports.login = async (req, res) => {
       values: [email],
     };
 
-    const update = await pool.query(query2);
-    console.log(update);
+    await pool.query(query2);
+    // console.log(update);
   }
   //
 
@@ -101,4 +101,20 @@ exports.register = async (req, res) => {
   await pool.query(insertQuery);
 
   return res.status(201).json('User has been created');
+};
+
+exports.check = (req, res, next) => {
+  const authHeader = req.headers.authorization;
+  if (authHeader) {
+    const token = authHeader.split(' ')[1];
+    jwt.verify(token, secrets.accessToken, (err, user) => {
+      if (err) {
+        return res.sendStatus(403);
+      }
+      req.user = user;
+      next();
+    });
+  } else {
+    res.sendStatus(401);
+  }
 };

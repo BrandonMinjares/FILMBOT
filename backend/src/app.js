@@ -33,7 +33,8 @@ app.get('/v0/dummy', dummy.get);
 // Your routes go here
 app.post('/v0/login', auth.login);
 app.post('/v0/register', auth.register);
-app.post('/v0/streamingServices', streamingServices.updateStreamingServices);
+app.post('/v0/streamingServices', auth.check,
+  streamingServices.postStreamingServices);
 
 
 app.use((err, req, res, next) => {
