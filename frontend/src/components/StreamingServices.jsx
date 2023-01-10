@@ -39,6 +39,7 @@ const setStreamingServices = (services) => {
     }),
   })
     .then((response) => {
+      console.log('test');
       if (!response.ok) {
         console.log('notok');
         throw response;
@@ -46,6 +47,9 @@ const setStreamingServices = (services) => {
       return response.json();
     })
     .then((json) => {
+      console.log('should redire');
+      window.location.href =
+      'http://localhost:3000/#/onboarding/initialmoviepreferences';
       console.log(json);
       // setError('');
     })

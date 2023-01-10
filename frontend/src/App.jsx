@@ -4,6 +4,8 @@ import {Route, HashRouter, Routes} from 'react-router-dom';
 import Register from './components/Register';
 import Login from './components/Login';
 import StreamingServices from './components/StreamingServices';
+import InitialMoviePreferences from './components/InitialMoviePreferences';
+
 import PrivateRoute from './components/PrivateRoute';
 import Movie from './components/Movie';
 
@@ -23,7 +25,8 @@ function App() {
             <Route path="/movie" element={<Movie/>}/>
             <Route path="/onboarding/streamingservices"
               element={<StreamingServices/>}/>
-
+            <Route path="/onboarding/initialmoviepreferences"
+              element={<InitialMoviePreferences/>}/>
             <Route path="/"
               element={
                 <PrivateRoute>

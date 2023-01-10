@@ -29,5 +29,5 @@ exports.postStreamingServices = async (req, res) => {
   };
   const {rows} = await pool.query(updateQuery);
 
-  return rows[0];
+  return res.status(200).json(rows);
 };
